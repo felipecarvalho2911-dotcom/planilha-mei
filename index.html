@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planilha MEI Iniciante v3 · Preço, lucro e limite 2027</title>
+<meta name="description" content="Planilha em Excel para quem abriu o MEI agora: descubra quanto cobrar, quanto sobra e quanto ainda pode faturar. Pronta para o novo limite de 2027 (R$ 110 mil). Garantia de 7 dias.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Planilha MEI Iniciante v3: preço, lucro e limite 2027">
+<meta property="og:description" content="Abriu o MEI agora? Descubra quanto cobrar, quanto sobra e quanto ainda pode faturar. Planilha em Excel, pronta para o limite de R$ 110 mil.">
+<meta property="og:image" content="prints/01-capa-quadrada.png">
+<meta name="theme-color" content="#4F46E5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F7FB; --card:#fff; --ink:#0F172A; --muted:#475569; --line:#E2E8F0;
+    --brand:#4F46E5; --cta:#16A34A; --cta-dark:#15803D;
+    --painel:#0D9488; --preco:#0284C7; --vender:#7C3AED; --receitas:#16A34A; --limite:#D97706; --resumo:#2563EB;
+    --shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 28px rgba(15,23,42,.08);
+    --r:20px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:17px;overflow-x:hidden}
+  img{max-width:100%;height:auto;display:block}
+  a{color:var(--brand)}
+  :focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  section{padding:56px 0}
+  h1,h2,h3{line-height:1.12;letter-spacing:-.025em;margin:0}
+  h2{font-size:clamp(28px,6.4vw,42px);font-weight:900;text-align:center}
+  .lead{color:var(--muted);text-align:center;max-width:620px;margin:14px auto 0}
+  .hl{--c:#C7D2FE;background:linear-gradient(transparent 58%,var(--c) 58%, var(--c) 92%,transparent 92%)}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;box-shadow:var(--shadow);color:var(--c,var(--brand))}
+  .pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+
+  /* Faixa */
+  .topbar{background:var(--brand);color:#fff;text-align:center;font-size:14px;font-weight:600;padding:9px 16px}
+  .topbar strong{font-weight:800}
+
+  /* Botão */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--cta);color:#fff;text-decoration:none;font-weight:800;font-size:18px;padding:17px 28px;border-radius:14px;box-shadow:0 8px 20px rgba(22,163,74,.28);transition:transform .15s ease, background .15s ease;min-height:56px;width:100%;max-width:400px;text-align:center}
+  .btn:hover{background:var(--cta-dark);transform:translateY(-1px)}
+  .btn svg{flex:none}
+  .cta-note{font-size:14px;color:var(--muted);margin-top:10px;text-align:center}
+  .cta-block{display:flex;flex-direction:column;align-items:center;padding:8px 0 0}
+
+  /* Hero */
+  .hero{padding:36px 0 40px;background:linear-gradient(180deg,#EEF2FF 0%,var(--bg) 100%)}
+  .hero-grid{display:grid;gap:28px;align-items:center}
+  .hero-copy{text-align:center}
+  .hero h1{font-size:clamp(34px,8.6vw,56px);font-weight:900;margin:18px 0 0}
+  .hero .sub{font-size:18px;color:var(--muted);margin:16px auto 0;max-width:520px}
+  .hero .sub strong{color:var(--ink)}
+  .hero .cta-block{margin-top:24px}
+  .seals{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px;padding:0;list-style:none}
+  .seals li{font-size:14px;font-weight:700;padding:6px 12px;border-radius:999px;background:#fff;box-shadow:var(--shadow);color:var(--ink)}
+  .seals li span{color:var(--c)}
+  .hero-img{border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(15,23,42,.16);background:#fff}
+
+  /* Dor */
+  .pains{display:grid;gap:16px;margin-top:32px}
+  .pain{background:var(--card);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);border-top:5px solid var(--c)}
+  .pain .q{font-size:22px;font-weight:900;letter-spacing:-.02em}
+  .pain p{margin:8px 0 0;color:var(--muted)}
+  .pain .a{display:block;margin-top:12px;font-size:14px;font-weight:700;color:var(--c)}
+
+  /* Benefícios */
+  .benefits{background:#fff}
+  .feat{display:grid;gap:22px;align-items:center;padding:28px 0}
+  .feat + .feat{border-top:1px solid var(--line)}
+  .feat-copy{text-align:center}
+  .feat h3{font-size:clamp(26px,6vw,36px);font-weight:900;margin-top:14px}
+  .feat p{color:var(--muted);margin:12px auto 0;max-width:460px}
+  .feat .hl{--c:var(--soft)}
+  .feat-img{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:var(--bg)}
+  .limits{display:flex;gap:8px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+  .limits div{background:#fff;border-radius:14px;box-shadow:var(--shadow);border-top:4px solid var(--limite);padding:10px 14px;text-align:left;min-width:96px}
+  .limits span{display:block;font-size:13px;font-weight:700;color:var(--muted)}
+  .limits b{font-size:19px;font-weight:900;letter-spacing:-.02em}
+  .price-card .btn{white-space:nowrap;font-size:17px;padding:16px 18px}
+  @media (max-width:767px){
+    section{padding:40px 0}
+    .hero{padding:28px 0 32px}
+    .hero-grid{gap:22px}
+    .pains,.receive,.who{margin-top:22px}
+    .pains{gap:12px}
+    .pain{padding:20px}
+    .feat{gap:14px;padding:22px 0}
+    .feat .pill{display:none}
+    .feat h3{margin-top:0;font-size:25px}
+    .limits{flex-wrap:nowrap;gap:6px}
+    .limits div{min-width:0;flex:1;padding:8px 10px}
+    .limits b{font-size:16px}
+    .pain .q{font-size:20px}
+    .pain .a{margin-top:8px}
+    .lead{margin-top:10px}
+    .feat p{margin-top:8px}
+    .card{padding:22px 20px}
+    .check{gap:12px}
+  }
+  @media (max-width:400px){.price-card{padding:28px 18px}.price-card .btn{font-size:16px;padding:15px 14px;gap:8px}}
+
+  /* Recebe */
+  .receive{display:grid;gap:20px;margin-top:32px}
+  .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:26px}
+  .check{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+  .check li{display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start}
+  .check li::before{content:"";width:26px;height:26px;border-radius:50%;background:#DCFCE7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316A34A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/15px no-repeat;margin-top:1px}
+  .check small{display:block;color:var(--muted);font-size:15px;margin-top:2px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tabs span{font-size:13px;font-weight:700;padding:3px 9px;border-radius:999px;background:#F1F5F9;color:#334155}
+  .tabs span.fill{background:#FEF9C3;color:#854D0E}
+  .bonus{border:2px dashed #A5B4FC;background:#EEF2FF;box-shadow:none;display:flex;gap:16px;align-items:center}
+  .bonus .tag{flex:none;background:var(--brand);color:#fff;font-weight:900;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-radius:10px;padding:8px 10px}
+  .bonus strong{display:block;font-size:18px}
+  .bonus span{color:var(--muted);font-size:15px}
+
+  /* Para quem */
+  .who{display:grid;gap:20px;margin-top:32px}
+  .who h3{font-size:22px;font-weight:900;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .who .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none}
+  .yes .ico{background:#DCFCE7;color:#15803D}
+  .no .ico{background:#FEE2E2;color:#B91C1C}
+  .list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .list li{padding-left:22px;position:relative}
+  .list li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--dot)}
+  .yes .list{--dot:#16A34A}
+  .no .list{--dot:#DC2626}
+
+  /* Autor */
+  .author{display:grid;gap:20px;justify-items:center;text-align:center;max-width:760px;margin:0 auto}
+  .avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#4F46E5,#0D9488);color:#fff;display:grid;place-items:center;font-weight:900;font-size:34px;letter-spacing:.02em;box-shadow:0 10px 26px rgba(79,70,229,.3)}
+  .author h2{font-size:clamp(26px,6vw,34px)}
+  .author p{color:var(--muted);margin:0}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;margin-top:6px}
+  .stat{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:16px 8px}
+  .stat b{display:block;font-size:clamp(24px,6vw,32px);font-weight:900;color:var(--brand);letter-spacing:-.02em}
+  .stat span{font-size:14px;color:var(--muted)}
+
+  /* Garantia */
+  .guarantee{background:linear-gradient(135deg,#ECFDF5,#F0FDFA);border:1px solid #A7F3D0;border-radius:24px;padding:30px 24px;display:grid;gap:20px;justify-items:center;text-align:center;max-width:820px;margin:0 auto}
+  .seal{width:120px;height:120px;border-radius:50%;background:#fff;border:6px solid var(--cta);display:grid;place-content:center;text-align:center;box-shadow:0 10px 30px rgba(22,163,74,.2);color:var(--cta-dark)}
+  .seal b{font-size:44px;font-weight:900;line-height:1}
+  .seal span{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .guarantee h2{font-size:clamp(26px,6vw,36px)}
+  .guarantee p{margin:10px 0 0;color:#334155}
+  .guarantee .why{font-size:15px;color:var(--muted);margin-top:14px}
+
+  /* Preço */
+  .price-card{max-width:480px;margin:0 auto;background:#fff;border-radius:24px;box-shadow:0 20px 50px rgba(15,23,42,.12);padding:32px 24px;text-align:center;border-top:6px solid var(--brand)}
+  .price-card .name{font-weight:800;font-size:18px}
+  .price-card .from{color:var(--muted);margin-top:18px}
+  .price-card .from s{color:#64748B}
+  .price-card .now{font-size:60px;font-weight:900;letter-spacing:-.04em;line-height:1;margin:6px 0 4px;color:var(--ink)}
+  .price-card .now small{font-size:24px;vertical-align:top;margin-right:4px;font-weight:800;position:relative;top:10px}
+  .price-card .cond{font-size:15px;color:var(--muted);margin:0 0 22px}
+  .price-card .mini{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:6px;font-size:15px;color:#334155}
+  .price-card .cta-block{padding:0}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:32px auto 0;display:grid;gap:12px}
+  details{background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  summary{cursor:pointer;list-style:none;padding:20px 56px 20px 20px;font-weight:800;font-size:18px;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";position:absolute;right:20px;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:50%;background:#EEF2FF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/12px no-repeat;transition:transform .2s ease}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{margin:0;padding:0 20px 20px;color:var(--muted)}
+
+  /* Rodapé */
+  footer{background:#0F172A;color:#CBD5E1;padding:40px 0 120px;text-align:center;font-size:15px}
+  footer a{color:#fff;font-weight:700}
+  footer p{margin:8px 0}
+  footer .brand{color:#fff;font-weight:900;font-size:18px;margin-bottom:14px}
+  footer .disc{color:#94A3B8;font-size:14px}
+
+  /* Barra fixa (celular) */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;transform:translateY(110%);transition:transform .25s ease;box-shadow:0 -6px 20px rgba(15,23,42,.08)}
+  .sticky.show{transform:none}
+  .sticky .p{line-height:1.15;flex:none}
+  .sticky .p s{font-size:12px;color:#64748B;display:block}
+  .sticky .p b{font-size:20px;font-weight:900}
+  .sticky .btn{font-size:16px;padding:12px 16px;min-height:48px;max-width:none;flex:1}
+
+  /* Animações */
+  .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .js .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .btn,.sticky,summary::after{transition:none}
+  }
+
+  /* Desktop */
+  @media (min-width:768px){
+    section{padding:84px 0}
+    .pains{grid-template-columns:repeat(3,1fr)}
+    .receive{grid-template-columns:1fr}
+    .who{grid-template-columns:1fr 1fr}
+    .guarantee{grid-template-columns:auto 1fr;text-align:left;padding:40px}
+    .author{grid-template-columns:auto 1fr;text-align:left;justify-items:start;align-items:center;column-gap:28px}
+    .author .stats{grid-column:1 / -1}
+    .sticky{display:none}
+    footer{padding-bottom:48px}
+  }
+  @media (min-width:960px){
+    .hero{padding:64px 0 72px}
+    .hero-grid{grid-template-columns:5fr 7fr;gap:48px}
+    .hero-copy{text-align:left}
+    .hero h1{font-size:46px}
+    .hero .sub{margin-left:0}
+    .hero .cta-block{align-items:flex-start}
+    .hero .cta-note{text-align:left}
+    .seals{justify-content:flex-start}
+    .feat{grid-template-columns:1fr 1fr;gap:56px;padding:48px 0}
+    .feat-copy{text-align:left}
+    .feat p{margin-left:0}
+    .limits{justify-content:flex-start}
+    .feat:nth-child(even) .feat-img{order:2}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar" role="note">Lançamento: <strong>R$ 19,90</strong> · garantia de 7 dias</div>
+
+<header class="hero" id="topo">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="pill" style="--c:var(--brand)">Pronta para 2027</span>
+      <h1>Abriu o MEI agora? Descubra <span class="hl" style="--c:#BBF7D0">quanto cobrar</span>, <span class="hl" style="--c:#BAE6FD">quanto sobra</span> e <span class="hl" style="--c:#FDE68A">quanto ainda pode faturar</span>.</h1>
+      <p class="sub">Planilha simples em Excel, <strong>pronta para o novo limite de 2027 (R$ 110 mil)</strong>. Você digita nas células amarelas e o resto é automático.</p>
+      <div class="cta-block">
+        <a class="btn js-checkout" href="#preco">Quero organizar meu MEI
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="cta-note">Pagamento seguro pela Hotmart · acesso imediato</p>
+      </div>
+      <ul class="seals" aria-label="Destaques">
+        <li><span style="--c:var(--cta)">●</span> Excel</li>
+        <li><span style="--c:var(--brand)">●</span> 9 abas</li>
+        <li><span style="--c:var(--painel)">●</span> Garantia de 7 dias</li>
+      </ul>
+    </div>
+    <div class="hero-img">
+      <picture>
+        <source media="(max-width: 767px)" srcset="prints/hero-painel-cartoes.png" width="610" height="118">
+        <img src="prints/hero-painel.png" width="1146" height="968" fetchpriority="high"
+             alt="Aba Painel da planilha com valores de exemplo: vendas do mês de R$ 986,00, gastos de R$ 85,90 e lucro de R$ 814,05.">
+      </picture>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section aria-labelledby="dor-t">
+  <div class="wrap">
+    <h2 id="dor-t" class="reveal">As 3 perguntas de quem <span class="hl">acabou de abrir</span> o MEI</h2>
+    <p class="lead reveal">Sem planilha, a resposta vira chute. Com ela, vira número.</p>
+    <div class="pains">
+      <article class="pain reveal" style="--c:var(--preco)">
+        <div class="q">Quanto eu cobro?</div>
+        <p>Você soma os materiais e o seu tempo, e a planilha mostra o preço e de onde sai cada centavo.</p>
+        <span class="a">Abas Custos e Entenda o preço</span>
+      </article>
+      <article class="pain reveal" style="--c:var(--receitas)">
+        <div class="q">Quanto sobra?</div>
+        <p>Lança vendas e gastos, separa o que é do negócio e o que é pessoal, e vê o lucro do mês já descontado o DAS.</p>
+        <span class="a">Abas Receitas, Despesas e Painel</span>
+      </article>
+      <article class="pain reveal" style="--c:var(--limite)">
+        <div class="q">Quanto ainda posso faturar?</div>
+        <p>Mostra quanto do limite você já usou e avisa quando passar de 80%. Abriu no meio do ano? Calcula o proporcional.</p>
+        <span class="a">Abas Config e Resumo</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="benefits" aria-labelledby="ben-t">
+  <div class="wrap">
+    <h2 id="ben-t" class="reveal">Veja a planilha <span class="hl">por dentro</span></h2>
+    <p class="lead reveal">Imagens da versão 3, com valores de exemplo.</p>
+
+    <div class="feats">
+      <div class="feat reveal" style="--c:var(--painel);--soft:#99F6E4">
+        <div class="feat-img"><img src="prints/02-painel.png" width="936" height="662" loading="lazy"
+          alt="Aba Painel: vendas, gastos e lucro do mês, DAS do mês, declaração anual, vendas por mês para empatar e quanto do limite já foi usado."></div>
+        <div class="feat-copy">
+          <span class="pill" style="--c:var(--painel)">Aba Painel</span>
+          <h3>Seu mês <span class="hl">numa tela só</span></h3>
+          <p>Vendas, gastos, lucro, DAS do mês e quanto do limite você já usou. Tudo automático, com gráficos.</p>
+        </div>
+      </div>
+
+      <div class="feat reveal" style="--c:var(--preco);--soft:#BAE6FD">
+        <div class="feat-img"><img src="prints/03-entenda-o-preco.png" width="936" height="402" loading="lazy"
+          alt="Aba Entenda o preço com o exemplo do brigadeiro: custo dos materiais, valor do tempo e o preço final, passo a passo."></div>
+        <div class="feat-copy">
+          <span class="pill" style="--c:var(--preco)">Entenda o preço</span>
+          <h3>Veja de onde sai <span class="hl">cada centavo</span></h3>
+          <p>Com o exemplo do brigadeiro: materiais, o seu tempo e a margem, passo a passo, até chegar no preço de venda.</p>
+        </div>
+      </div>
+
+      <div class="feat reveal" style="--c:var(--vender);--soft:#DDD6FE">
+        <div class="feat-img"><img src="prints/04-quanto-vender.png" width="520" height="192" loading="lazy"
+          alt="Bloco Quanto preciso vender: contas fixas do mês mais DAS, lucro médio por unidade e 27 vendas por mês para empatar."></div>
+        <div class="feat-copy">
+          <span class="pill" style="--c:var(--vender)">Quanto vender</span>
+          <h3>Saiba quantas vendas <span class="hl">pagam as contas</span></h3>
+          <p>No exemplo, 27 vendas por mês pagam suas contas e o DAS. Abaixo disso, prejuízo. Você sabe sua meta antes do mês começar.</p>
+        </div>
+      </div>
+
+      <div class="feat reveal" style="--c:var(--receitas);--soft:#BBF7D0">
+        <div class="feat-img"><img src="prints/05-receitas.png" width="1008" height="242" loading="lazy"
+          alt="Aba Receitas: ao escolher o produto, o preço aparece sozinho e há um campo para desconto."></div>
+        <div class="feat-copy">
+          <span class="pill" style="--c:var(--receitas)">Aba Receitas</span>
+          <h3>Lançar uma venda leva <span class="hl">15 segundos</span></h3>
+          <p>Escolha o produto e o preço vem sozinho. Deu desconto? Tem um campo para isso, e o valor final é automático.</p>
+        </div>
+      </div>
+
+      <div class="feat reveal" style="--c:var(--limite);--soft:#FDE68A">
+        <div class="feat-img"><img src="prints/06-limite-2027.png" width="628" height="180" loading="lazy"
+          alt="Aba Config com a tabela de limites do MEI: R$ 81 mil em 2026, R$ 110 mil em 2027 e R$ 140 mil em 2028."></div>
+        <div class="feat-copy">
+          <span class="pill" style="--c:var(--limite)">Novo limite do MEI</span>
+          <h3>Pronta para o <span class="hl">novo limite</span></h3>
+          <p>R$ 81 mil (2026), R$ 110 mil (2027) e R$ 140 mil (2028), conforme a lei sancionada em 21/10/2026. Troque o ano e pronto.</p>
+          <div class="limits" aria-hidden="true">
+            <div><span>2026</span><b>R$ 81 mil</b></div>
+            <div><span>2027</span><b>R$ 110 mil</b></div>
+            <div><span>2028</span><b>R$ 140 mil</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat reveal" style="--c:var(--resumo);--soft:#BFDBFE">
+        <div class="feat-img"><img src="prints/07-resumo.png" width="936" height="662" loading="lazy"
+          alt="Aba Resumo do ano: tabela mês a mês com receitas, despesas, DAS, lucro, faturamento acumulado e percentual do limite."></div>
+        <div class="feat-copy">
+          <span class="pill" style="--c:var(--resumo)">Aba Resumo</span>
+          <h3>O ano inteiro, <span class="hl">mês a mês</span></h3>
+          <p>Receitas, despesas, DAS, lucro e limite, com gráficos e aviso quando passar de 80%. Ajuda na declaração anual (DASN).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-block reveal" style="margin-top:24px">
+      <a class="btn js-checkout" href="#preco">Quero organizar meu MEI
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <p class="cta-note">R$ 19,90 no lançamento · garantia de 7 dias</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="rec-t">
+  <div class="wrap" style="max-width:820px">
+    <h2 id="rec-t" class="reveal">O que você <span class="hl">recebe</span></h2>
+    <div class="receive">
+      <div class="card reveal">
+        <ul class="check">
+          <li><div><strong>Planilha Excel (.xlsx) com 9 abas. Você só preenche 5 delas.</strong>
+            <div class="tabs" aria-label="Abas da planilha">
+              <span>Instruções</span><span>Painel</span><span class="fill">Config</span><span class="fill">Produtos</span><span class="fill">Custos</span><span>Entenda o preço</span><span class="fill">Receitas</span><span class="fill">Despesas</span><span>Resumo</span>
+            </div>
+            <small>Em amarelo, as abas que você preenche.</small></div></li>
+          <li><div><strong>Fórmulas prontas e protegidas</strong><small>Sem senha, para você poder ajustar se quiser.</small></div></li>
+          <li><div><strong>Preço automático e campo de desconto</strong><small>Na hora de lançar a venda, o valor vem sozinho.</small></div></li>
+          <li><div><strong>Limite 2026, 2027 e 2028 já configurados</strong><small>R$ 81 mil, R$ 110 mil e R$ 140 mil. Limite proporcional para quem abriu no meio do ano.</small></div></li>
+          <li><div><strong>Exemplos preenchidos e aba de instruções em 3 passos</strong><small>Você vê como funciona antes de colocar os seus números.</small></div></li>
+          <li><div><strong>Acesso imediato</strong><small>Depois da confirmação do pagamento, pela área de membros da Hotmart.</small></div></li>
+        </ul>
+      </div>
+      <div class="card bonus reveal">
+        <span class="tag">Bônus</span>
+        <div><strong>Guia Rápido em PDF (3 páginas)</strong><span>Como preencher a planilha pela primeira vez, sem enrolação.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="quem-t" style="padding-top:0">
+  <div class="wrap" style="max-width:980px">
+    <h2 id="quem-t" class="reveal">É para você?</h2>
+    <div class="who">
+      <div class="card yes reveal">
+        <h3><span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>Para quem é</h3>
+        <ul class="list">
+          <li>Quem está no primeiro ano do MEI e quer começar com os números certos</li>
+          <li>Comércio, serviços ou os dois: o DAS certo para cada caso</li>
+          <li>Quem nunca usou Excel direito: só digita nas células amarelas</li>
+          <li>Quem quer saber se o negócio dá lucro ou só movimenta dinheiro</li>
+          <li>Quem quer acompanhar o novo limite de 2027 sem fazer conta</li>
+        </ul>
+      </div>
+      <div class="card no reveal">
+        <h3><span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>O que ela não é</h3>
+        <ul class="list">
+          <li>Não substitui o contador</li>
+          <li>Não serve para MEI caminhoneiro</li>
+          <li>Feita para Excel no computador (testada no LibreOffice). No Google Planilhas e no celular pode haver diferenças</li>
+          <li>Todo janeiro você confere o salário mínimo do ano numa célula</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="autor-t" style="background:#fff">
+  <div class="wrap">
+    <div class="author reveal">
+      <div class="avatar" role="img" aria-label="Iniciais de Felipe Carvalho">FC</div>
+      <div>
+        <span class="pill" style="--c:var(--brand)">Quem fez</span>
+        <h2 id="autor-t" style="text-align:inherit;margin-top:12px">Oi, eu sou o Felipe</h2>
+        <p style="margin-top:10px">Sou assistente administrativo, formado em Análise e Desenvolvimento de Sistemas e técnico em Administração. Uso planilhas de compras e estoque todos os dias e fiz esta para quem está começando.</p>
+      </div>
+      <div class="stats" aria-label="Números do produto">
+        <div class="stat"><b>9</b><span>abas</span></div>
+        <div class="stat"><b>1.931</b><span>fórmulas testadas</span></div>
+        <div class="stat"><b>0</b><span>erros</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="gar-t">
+  <div class="wrap">
+    <div class="guarantee reveal">
+      <div class="seal" aria-hidden="true"><b>7</b><span>dias</span></div>
+      <div>
+        <h2 id="gar-t" style="text-align:inherit">Teste por 7 dias</h2>
+        <p>Baixe, preencha com os seus números e veja seu primeiro resumo. Se não fizer sentido para o seu MEI, peça o reembolso pela Hotmart com 2 cliques, sem precisar explicar. <strong>O risco é todo meu.</strong></p>
+        <p class="why">Produto novo, ainda sem avaliações. Por isso o preço de lançamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="preco" aria-labelledby="preco-t" style="padding-top:0">
+  <div class="wrap">
+    <div class="price-card reveal">
+      <h2 id="preco-t" class="name">Planilha MEI Iniciante v3</h2>
+      <p class="from">de <s>R$ 27</s> por</p>
+      <p class="now"><small>R$</small>19,90</p>
+      <p class="cond">Pagamento único · preço de lançamento até as 5 primeiras avaliações (ou 31/12/2026, o que vier antes)</p>
+      <div class="cta-block">
+        <a class="btn js-checkout" href="#preco">Quero organizar meu MEI
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <ul class="mini">
+        <li>✓ Acesso imediato pela Hotmart</li>
+        <li>✓ Bônus: Guia Rápido em PDF</li>
+        <li>✓ Garantia de 7 dias</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="faq-t" style="background:#fff">
+  <div class="wrap">
+    <h2 id="faq-t" class="reveal">Perguntas <span class="hl">frequentes</span></h2>
+    <div class="faq">
+      <details class="reveal"><summary>Preciso saber Excel?</summary><p>Não. Você só digita nas células amarelas. O resto é automático, e a primeira aba explica em 3 passos.</p></details>
+      <details class="reveal"><summary>Funciona no celular ou no Google Planilhas?</summary><p>É feita para Excel no computador e foi testada no LibreOffice (grátis). No Google Planilhas abre e calcula, mas alguns avisos coloridos podem mudar.</p></details>
+      <details class="reveal"><summary>Serve para o meu MEI de serviço?</summary><p>Sim: comércio, serviços ou os dois. A planilha calcula o DAS certo para cada caso. Não serve para MEI caminhoneiro.</p></details>
+      <details class="reveal"><summary>E quando o valor do DAS mudar?</summary><p>Todo janeiro você troca o salário mínimo numa célula e o DAS se recalcula. Os limites de 2027 e 2028 já estão lá.</p></details>
+      <details class="reveal"><summary>Substitui o contador?</summary><p>Não. Ela organiza seus números, o que deixa a conversa com o contador mais rápida e barata.</p></details>
+      <details class="reveal"><summary>Como recebo?</summary><p>Na hora, depois da confirmação do pagamento, pela área de membros da Hotmart.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="brand">Planilha MEI Iniciante v3</p>
+    <p>Dúvidas: <a href="mailto:felipecarvalho2911@gmail.com">felipecarvalho2911@gmail.com</a><br>Respondo em até 24 h nos dias úteis.</p>
+    <p class="disc">Esta planilha é uma ferramenta de organização e não substitui um contador.<br>Valores de exemplo nas imagens.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="p"><s>R$ 27</s><b>R$ 19,90</b></div>
+  <a class="btn js-checkout" href="#preco" tabindex="-1">Quero organizar meu MEI</a>
+</div>
+
+<script>
+  // >>> TROQUE pelo link do checkout da Hotmart <<<
+  const CHECKOUT_URL = "https://pay.hotmart.com/T108169412D";
+
+  document.documentElement.classList.add('js');
+
+  // Botões: só usam o link quando ele for um endereço de verdade
+  if (/^https?:\/\//.test(CHECKOUT_URL)) {
+    document.querySelectorAll('.js-checkout').forEach(a => { a.href = CHECKOUT_URL; });
+  }
+
+  // Animação de entrada
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in'));
+  }
+
+  // Botão fixo no celular depois que o hero sai da tela (some perto do cartão de preço)
+  const sticky = document.getElementById('sticky');
+  const hero = document.getElementById('topo');
+  const price = document.getElementById('preco');
+  if ('IntersectionObserver' in window) {
+    let heroOut = false, priceIn = false;
+    const update = () => {
+      const show = heroOut && !priceIn;
+      sticky.classList.toggle('show', show);
+      sticky.setAttribute('aria-hidden', String(!show));
+      sticky.querySelector('a').tabIndex = show ? 0 : -1;
+    };
+    new IntersectionObserver(([e]) => { heroOut = !e.isIntersecting; update(); }).observe(hero);
+    new IntersectionObserver(([e]) => { priceIn = e.isIntersecting; update(); }, { threshold: 0.3 }).observe(price);
+  }
+</script>
+</body>
+</html>
